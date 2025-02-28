@@ -1,18 +1,4 @@
 ---
-name: "SLURM"
-partition: "accelerated"
-job-name: "mg_gpu"
-num_parallel_jobs: 120
-ntasks: 1
-cpus-per-task: 152
-mem-per-cpu: 2048
-time: 1800
-gpus_per_rep: 1
-scheduler: horeka
-sbatch_args:
-  gres: "gpu:4"
----
-
 name: "mg"
 path: './cw_exps/mini_golf/'
 iterations: 4500

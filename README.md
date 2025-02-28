@@ -1,3 +1,6 @@
+# Acquiring Diverse Skills using Curriculum Reinforcement Learning with Mixture of Experts
+
+## Installation 
 Create a conda environment with **python3.8**, activate it and install the packages listed below in the right order.
 
 1. The Trust-Region Projection Layers use a C++ implementation for solving the dual. This is implemented in the  [ITPAL](https://github.com/ALRhub/ITPAL) (MIT LICENSE) package and needs to be seperately installed. Please follow the installation instructions listed [here](https://github.com/ALRhub/ITPAL).   
@@ -25,4 +28,8 @@ Hence, DI-Skill follows the AGPL-3.0 LICENSE. Navigate to the folder diskill and
 ```bash
 pip install -r requirements.txt
 pip install -e .
+```
+## Running an experiment
+```python
+python diskill/run.py diskill/configs/table_tennis.yml -o --nocodecopy 
 ```

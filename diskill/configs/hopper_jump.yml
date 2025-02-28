@@ -1,15 +1,4 @@
 ---
-name: "SLURM"
-partition: "cpuonly"
-job-name: "hj_cpu"
-num_parallel_jobs: 0
-cpus-per-task: 152
-time: 1000
-cpus_per_rep: 19
-scheduler: cpu_distribute
-ntasks: 1
-
----
 
 name: "hj"
 path: './cw_exps/hopper_jump/'
