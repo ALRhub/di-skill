@@ -1,5 +1,5 @@
 # Acquiring Diverse Skills using Curriculum Reinforcement Learning with Mixture of Experts
-
+Please find the project webpage [here](https://alrhub.github.io/di-skill-website/) with the link to the paper and videos showcasing conducted experiments.
 ## Installation 
 Create a conda environment with **python3.8**, activate it and install the packages listed below in the right order.
 
