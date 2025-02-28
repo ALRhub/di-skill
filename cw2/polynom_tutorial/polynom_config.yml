@@ -1,0 +1,81 @@
+---
+# Slurm config (optional)
+name: "SLURM_ret"   # MUST BE "SLURM"
+
+# Required
+partition: "dev"
+job-name: "polynom"    # this will be the experiment's name in slurm
+#path_to_template: "/home/max_li/code/cw2/templates/sbatch_template.sh"   # Path to YOUR prepared sbatch script
+
+# Required - Cluster Specific
+num_parallel_jobs: 120
+ntasks: 1
+cpus-per-task: 1
+mem-per-cpu: 1000
+time: 30
+
+#experiment_copy_auto_dst: "/home/max/autodst"
+#experiment_copy_src: "."
+
+# Optional
+#venv: "/home/max_li/venv/bin/activate"   # optional. path to your virtual environment activate-file
+
+# Optional Code Copy: Both Args are required.
+#experiment_copy_dst: "/home/max_li/polylog/code"       # optional. dir TO which the current code will be copied. Useful to prevent unintentional changes while the job is in queue. Defaults to EXPERIMENTCONFIG.path/code
+#experiment_copy_src: "/home/max_li/code/cw2/polynom_tutorial"       # optional. dir FROM which the current code will be copied. Useful to prevent unintentional changes while the job is in queue. Defaults to CWD.
+sh_lines:
+  - "# haha"
+  - "# hihi"
+---
+
+# DEFAULT parameters (Optional)
+name: "DEFAULT"   # MUST BE 'DEFAULT'
+reps_per_job: 4
+reps_in_parallel: 1
+
+# Required: Can also be set in DEFAULT
+path: "/tmp/polylog"   # location to save results in
+repetitions: 2    # number of times one set of parameters is run
+iterations: 1000  # number of iterations per repetition
+
+# Implementation default parameters
+params:
+  noise: 5
+  stepsize: 0.05
+
+---
+# Experiment 1
+name: "polynomial"
+aah: "aaah"
+
+params:
+  x_0: 1
+  x_1: 2
+  x_2: 3
+  x_3: 4
+
+---
+# Experiment 2
+name: "grid_polynom"
+repetitions: 1
+iterations: 100
+
+#import_path: "./external_conf.yml"
+#import_exp: "ext_exp"
+
+params:
+  x_0: 0
+  x_3: 0
+
+ablative:
+  x_0: [2]
+  x_3: [6, 12]
+
+# A total of 12 Runs will be created
+grid:
+  x_1: [3, 4]
+  x_2: [3, 4, 5]
+
+list:
+  x_4: [2, 3]
+  x_5: [2, 3]

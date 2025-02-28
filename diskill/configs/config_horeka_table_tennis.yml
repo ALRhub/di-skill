@@ -1,0 +1,123 @@
+---
+name: "SLURM"
+partition: "cpuonly"
+job-name: "tt"
+num_parallel_jobs: 0
+cpus-per-task: 152
+time: 1800
+cpus_per_rep: 19
+scheduler: cpu_distribute
+ntasks: 1
+sbatch_args:
+  account: "hk-project-p0022232"
+---
+name: "ttV_final"
+path: './cw_exps/tt_hard/'
+iterations: 4500
+repetitions: 24 # number of times one set of parameters is run
+reps_per_job: 8
+reps_in_parallel: 8 # need to be 1 in order for wandb to work properly
+
+params:
+    general:
+      verbose: 1
+      log_verbosity: 1    # 1: log all, 2: log only essential
+      alpha: 0.01
+      alpha_tilde: 0
+      beta: 64
+      n_init_cmps: 10
+      fine_tune_every_it: 3500000
+      add_every_it: 2500
+      fine_tune_all_it: 2000000
+      add_after_it: 2000000
+      n_cmp_adds: 1   # number of components which should be added at once
+      cpu: 1
+      dtype: "float64"
+      test_every_it: 5
+      n_test_samples: 75
+      save_model_every_it: 50
+    environment:
+      num_envs: 20
+      num_test_envs: 25
+      env_id: 'VSLTableTennis5DProDMP-v0'
+      env_kwargs: {}
+    data:
+      num_minibatches: 1
+      norm_advantages: 1
+      buffer_size: 200
+      n_samples_p_cmp: 10
+      n_env_ctxt_samples: 5000
+      batch_size: 200
+      norm_buffer_size: 1
+    experts:
+      hidden_sizes_policy: [32, 32]
+      initialization: "orthogonal"
+      activation: "tanh"
+      contextual_std: 0
+      init_std: 1
+      init_mean: 0.0
+      policy_type: 'full'
+      optimizer_policy: "adam"
+      lr_policy: 0.0003
+      importance_ratio_clip: 0.0
+      epochs: 100
+      clip_advantages: 0.0
+    trl:
+      proj_type: "kl"
+      mean_bound: 0.05
+      cov_bound: 0.005
+      entropy_eq: 0
+      entropy_first: 0
+      scale_prec: 1
+      target_entropy: 0.0
+      temperature: 0.5
+      entropy_schedule: 0
+      trust_region_coeff: 100
+      do_regression: 0
+      regression_iters: 5
+      lr_reg: 0.0003
+      optimizer_reg: "adam"
+      rej_update_if_violated: 0
+    critic:
+      use_critic: 1
+      log_test_error: 0
+      initialization: "orthogonal"
+      hidden_sizes_critic: [ 8, 8 ]
+      activation: 'tanh'
+      optimizer_critic: "adam"
+      clip_vf: 0.0
+      lr_critic: 0.0003
+      val_epochs: 100
+      clip_grad_norm: 0.0
+    ctxt_distr:
+      hidden_sizes_ctxt_distr: [16, 16]
+      initialization: 'orthogonal'
+      activation_ctxt_distr: 'tanh'
+      optimizer_ctxt_distr: 'adam'
+      lr_ctxt_distr: 0.0001
+      lr_ctxt_distr_heads: 0.0001
+      importance_ratio_clip_ctxt_distr: 0.2
+      epochs_ctxt_distr: 100
+      clip_advantages_ctxt_distr: 0.0
+      max_grad_norm: 0.5
+      lr_decay: 0
+      beta_scheduler: 0
+grid:
+    general:
+      alpha: [ 0.001 ]
+      beta: [ 0.5 ]
+    trl:
+      mean_bound: [ 0.05 ]
+      cov_bound: [ 0.005 ]
+    experts:
+      hidden_sizes_policy: [ [ 128 ] ]
+    data:
+      n_samples_p_cmp: [50]
+      buffer_size: [ 50 ]
+      batch_size: [ 50 ]
+wandb:
+#    project: DI_SKILL
+    project: ICML_2024_RUNS
+    group: official_code_reprod_di_skill_table_tennis_hard
+    log_interval: 5
+
